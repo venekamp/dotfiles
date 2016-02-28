@@ -1,0 +1,118 @@
+" Note: Skip initialization for vim-tiny or vim-small.
+if 0 | endif
+
+if &compatible
+  set nocompatible               " Be iMproved
+endif
+
+" Required:
+set runtimepath^=~/.vim/bundle/neobundle.vim/
+
+" Required:
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" My Bundles here:
+" Refer to |:NeoBundle-examples|.
+" Note: You don't set neobundle setting in .gvimrc!
+
+NeoBundle 'chriskempson/base16-vim'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
+NeoBundle 'lervag/vimtex'
+
+call neobundle#end()
+
+" Required:
+filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
+
+" Syntax highlighting should be in 256 colors
+syntax on
+syntax enable
+set t_Co=256
+
+" Sanity Config (Don't edit text like an animal)
+" ==============================================
+set nocompatible                " Use vim rather than vi settings
+set encoding=utf-8              " standard encoding
+"set relativenumber             " prefer absolute #
+set number                      " Its nice to see line numbers
+set backspace=indent,eol,start  " Allow backspace in insert mode
+set autoread                    " Reload files changed outside vim
+set hidden                      " Buffers can exist in the background
+set history=1000                " Store lots of :cmdline history (its not 1990)
+"Don't dump distracting text to terminal during searches!
+set shellpipe=2>/dev/null>
+"set re=1                        "Use a non-broken regex engine for syntax highlighting
+
+" Mouse
+" ======
+" Send more characters for redraws
+set ttyfast
+" Enable mouse use in all modes
+set mouse=a
+" Set this to the name of your terminal that supports mouse codes.
+" Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
+set ttymouse=xterm2
+
+" Persistent Undo
+" ===============
+
+" Keep undo history across sessions, by storing in file
+" Only works in MacVim (gui) mode
+if has('gui_running')
+  set undodir=~/.vim/backups
+  set undofile
+endif
+
+" Indentation and Display
+" =======================
+
+" We want to replace tabs with spaces and have 4 space width indentation
+set autoindent
+set smartindent
+set smarttab
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+set expandtab
+
+set list listchars=tab:\ \ ,trail:·   " Display tabs and trailing spaces visually
+set nowrap                            " Don't wrap lines
+
+" Completion
+" ==========
+
+"set wildmode=list:longest
+set wildmode=longest,list,full
+set wildmenu                    " Enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~     " Stuff to ignore when tab completing
+set wildignore+=*vim/backups*
+
+" Scrolling
+" =========
+
+" Start scrolling when we're getting close to margins
+set scrolloff=10
+set sidescrolloff=15
+set sidescroll=1
+
+"\rr => refresh vimrc
+map <leader>rr :source ~/.vimrc<CR>
+
+" Set the color scheme for vim
+let base16colorspace=256
+set background=dark
+colorscheme base16-default
+
+set laststatus=2
+
