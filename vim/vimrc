@@ -25,6 +25,7 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'lervag/vimtex'
+NeoBundle 'pearofducks/ansible-vim'
 
 call neobundle#end()
 
@@ -51,7 +52,7 @@ set autoread                    " Reload files changed outside vim
 set hidden                      " Buffers can exist in the background
 set history=1000                " Store lots of :cmdline history (its not 1990)
 "Don't dump distracting text to terminal during searches!
-set shellpipe=2>/dev/null>
+"set shellpipe=2>/dev/null>
 "set re=1                        "Use a non-broken regex engine for syntax highlighting
 
 " Mouse
@@ -116,3 +117,23 @@ colorscheme base16-default
 
 set laststatus=2
 
+set viminfo='10,\"100,:20,%,n~/.viminfo
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
+
+"  Change the location where the back and swap files are store,
+"  so that they don't get in the way of git status, etc.
+set backupdir=~/.vim/.backup,.,/tmp
+set directory=~/.vim/.backup,.,/tmp
+
+" Airline condif
+let g:airline_powerline_fonts = 1
