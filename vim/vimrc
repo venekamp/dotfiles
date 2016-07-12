@@ -113,7 +113,14 @@ map <leader>rr :source ~/.vimrc<CR>
 " Set the color scheme for vim
 let base16colorspace=256
 set background=dark
-colorscheme base16-default-dark
+" On a fresh install the color scheme has not yet been installed
+" and vim will give an error. On the second run the color schemes
+" are installed. Error in loading the color scheme is ignored.
+try
+  colorscheme base16-default-dark
+catch /^Vim\%((\a\+)\)\=:E185/
+    silent! colorscheme
+endtry
 
 set laststatus=2
 
