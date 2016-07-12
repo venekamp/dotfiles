@@ -52,7 +52,7 @@ set autoread                    " Reload files changed outside vim
 set hidden                      " Buffers can exist in the background
 set history=1000                " Store lots of :cmdline history (its not 1990)
 "Don't dump distracting text to terminal during searches!
-set shellpipe=2>/dev/null>
+"set shellpipe=2>/dev/null>
 "set re=1                        "Use a non-broken regex engine for syntax highlighting
 
 " Mouse
