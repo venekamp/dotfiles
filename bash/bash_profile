@@ -1,0 +1,73 @@
+# Function for determining the current git branch
+determine_git_branch() {
+    branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+
+    if [[ "x$branch" == "x" ]]; then
+        return
+    fi
+
+    if [[ ${#branch} -gt 10 ]]; then
+        branch="$(echo $branch | cut -c 1-10)…"
+    fi
+
+    echo "$branch/"
+}
+
+
+alias ls='ls -G'
+alias ll='ls -sl'
+alias la='ls -sla'
+
+alias vi='vim'
+
+# Set the histroy size of Bash
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+shopt -s histappend
+
+# Don't put commands starting with a space in the histrory of Bash;
+# Do not remember duplicate commands.
+export HISTCONTROL=ignorespace:ignoredups
+
+#  include my local bin dir for my commands
+export PATH=~/bin:$PATH
+
+# Default OSX style: '\h:\W \u\$ '
+#export PS1="[\[\033[39m\]\u\[\033[39m\]@\[\033[32m\]\h\[\033[39m\] \W]$ "
+#export PS1="\[\033[39m\]\u\[\033[39m\]@\[\033[32m\]\h\[\033[39m\] \W\[\033[34m\]/\$(determine_git_branch)\[\033[39m\]$ "
+export PS1="\[\033[39m\]\u\[\033[39m\]@\[\033[32m\]\h\[\033[39m\] \[\033[34m\]\$(determine_git_branch)\[\033[39m\]\W$ "
+
+# Base16 Shell
+#BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
+#[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+set_term_colours
+
+# Add apache-maven
+export M2_HOME=/usr/local/apache-maven
+#export M2=$M2_HOME/bin
+export MAVEN_OPTS="-Xms256m -Xmx512m"
+export PATH=$PATH:$M2_HOME/bin
+
+# Homebrew
+export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
+
+# Ruby
+if [[ -e $(ruby -rubygems -e 'puts Gem.user_dir')/bin ]]; then
+    PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
+
+# Add Python 2.7 scripts
+export PATH=$PATH:~/Library/Python/2.7/bin
+
+alias join_fab='zerotier-cli join 565799d8f6397398'
+alias leave_fab='zerotier-cli leave 565799d8f6397398'
+
+#  MacOS doesn't add identities automatically anymore. Let's do ourselves then.
+#ssh-add -K /USers/gerben/.ssh/id_ed25519
+ssh-add -K /USers/gerben/.ssh/github_ed25519
+ssh-add -K /USers/gerben/.ssh/gitlab_ed25519
+
+# Disable Homebrew reporting
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_INSECURE_REDIRECT=1
+
