@@ -22,10 +22,16 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-markdown'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
+NeoBundle 'vim-syntastic/syntastic'
 NeoBundle 'lervag/vimtex'
 NeoBundle 'pearofducks/ansible-vim'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'vim-latex/vim-latex'
+NeoBundle 'bronson/vim-trailing-whitespace'
+NeoBundle 'majutsushi/tagbar'
 
 call neobundle#end()
 
@@ -144,3 +150,5 @@ set directory=~/.vim/.backup,.,/tmp
 
 " Airline condif
 let g:airline_powerline_fonts = 1
+
+autocmd BufWritePre *.py,*.sh,*.cpp,*.hpp,*.c,*.h,*.tex :%s/\s\+$//e
