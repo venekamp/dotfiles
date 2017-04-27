@@ -50,6 +50,7 @@ NeoBundleCheck
 syntax on
 syntax enable
 set t_Co=256
+set termguicolors
 
 " Sanity Config (Don't edit text like an animal)
 " ==============================================
