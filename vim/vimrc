@@ -161,3 +161,9 @@ autocmd BufWritePre *.py,*.sh,*.cpp,*.hpp,*.c,*.h,*.tex :%s/\s\+$//e
 " Set Omni Completion
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
+
+" Don't fond on markdown files
+let g:vim_markdown_folding_disabled = 1
+
+" Remove the 1 second lag from the escape key
+set ttimeoutlen=10
