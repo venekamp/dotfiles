@@ -1,0 +1,69 @@
+# Sample .bashrc for SuSE Linux
+# Copyright (c) SuSE GmbH Nuernberg
+
+# There are 3 different types of shells in bash: the login shell, normal shell
+# and interactive shell. Login shells read ~/.profile and interactive shells
+# read ~/.bashrc; in our setup, /etc/profile sources ~/.bashrc - thus all
+# settings made here will also take effect in a login shell.
+#
+# NOTE: It is recommended to make language settings in ~/.profile rather than
+# here, since multilingual X sessions would not work properly if LANG is over-
+# ridden in every subshell.
+
+# Some applications read the EDITOR variable to determine your favourite text
+# editor. So uncomment the line below and enter the editor of your choice :-)
+#export EDITOR=/usr/bin/vim
+#export EDITOR=/usr/bin/mcedit
+
+# For some news readers it makes sense to specify the NEWSSERVER variable here
+#export NEWSSERVER=your.news.server
+
+# If you want to use a Palm device with Linux, uncomment the two lines below.
+# For some (older) Palm Pilots, you might need to set a lower baud rate
+# e.g. 57600 or 38400; lowest is 9600 (very slow!)
+#
+#export PILOTPORT=/dev/pilot
+#export PILOTRATE=115200
+
+# Disable the system bell
+# xset -b
+
+
+# Determine the current git branch is any.
+determine_git_branch() {
+    # branch=$(git rev-parse --abbrev-ref HEAD)
+    branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+
+    if [[ "x$branch" == "x" ]]; then
+        return
+    fi
+
+    if [[ ${#branch} -gt 10 ]]; then
+        branch="$(echo $branch | cut -c 1-10)…"
+    fi
+
+    echo "/$branch"
+}
+
+
+test -s ~/.alias && . ~/.alias || true
+
+# Set the PS1 prompt with colouring and git branch info if present for the current directory.
+export PS1="\[\033[39m\]\u\[\033[39m\]@\[\033[32m\]\h\[\033[39m\]:\W\[\033[34m\]\$(determine_git_branch)\[\033[39m\]> "
+
+# Determine what terminal is currently running the .bashrc
+TERM_EMULATOR=$(basename $(ps -o 'cmd=' -p $(ps -o 'ppid=' -p $$)))
+
+# What terminal emulators understand the Base16-shell colour settings?
+TERM_HAS_BASE16_SUPPORT=false
+case $TERM_EMULATOR in
+    tilix)
+        TERM_HAS_BASE16_SUPPORT=true
+    ;;
+esac
+
+if $TERM_HAS_BASE16_SUPPORT; then
+    # Base16-shell color themes
+    BASE16_SHELL=$HOME/.config/base16-shell/
+    [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+fi
