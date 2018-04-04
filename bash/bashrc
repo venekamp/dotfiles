@@ -49,7 +49,7 @@ determine_git_branch() {
 test -s ~/.alias && . ~/.alias || true
 
 # Set the PS1 prompt with colouring and git branch info if present for the current directory.
-export PS1="\[\033[39m\]\u\[\033[39m\]@\[\033[32m\]\h\[\033[39m\]:\W\[\033[34m\]\$(determine_git_branch)\[\033[39m\]> "
+PS1="\[\033[39m\]\u\[\033[39m\]@\[\033[32m\]\h\[\033[39m\]:\W\[\033[34m\]\$(determine_git_branch)\[\033[39m\]> "
 
 # Determine what terminal is currently running the .bashrc
 TERM_EMULATOR=$(basename $(ps -o 'cmd=' -p $(ps -o 'ppid=' -p $$)))
