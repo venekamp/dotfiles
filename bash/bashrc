@@ -59,6 +59,11 @@ TERM_HAS_BASE16_SUPPORT=false
 case $TERM_EMULATOR in
     tilix)
         TERM_HAS_BASE16_SUPPORT=true
+        export TERM="konsole-256color"
+    ;;
+    konsole)
+        TERM_HAS_BASE16_SUPPORT=false
+        export TERM="konsole-256color"
     ;;
 esac
 
