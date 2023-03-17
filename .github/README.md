@@ -2,18 +2,35 @@
 
 # dotfiles
 
-## Setup and config
+## Setup and configuration
 
-Dotfiles make use of a bare git repository, i.e. the git repo data is not stored as part of the working directory. Therefor an alias is defined that is a wrapper around the git command and setting the `--git-dir` and `--work-dir` to different locations.
+Dotfiles make use of a bare git repository, i.e. the git repo data is not
+stored as part of the working directory. Therefor an alias is defined that is a
+wrapper around the git command and setting the `--git-dir` and `--work-dir` to
+different locations.
 
-`dotfiles='git --git-dir=/Users/venek001/.dotfiles/ --work-tree=/Users/venek001'`
+Start by setting up an alias for working with a bare repository:
 
-`dotfiles config --local status.showUntrackedFiles no`
+```bash
+alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+```
+
+Configure the repository to not track files. If file tracking is allowed you
+will see all untracked files in your root and that's probably a lot.
+
+```bash
+dotfiles config --local status.showUntrackedFiles no`
+```
 
 Checking out the dotfiles is done by:
 
-`dotfiles status`
-
+```bash
+mkdir $HOME/.dotfiles
+dotfiles init
+dotfiles config --global init.defaultBranch main
+dotfiles remote add origin git@github.com:venekamp/dotfiles.git
+dotfiles pull origin main
+```
 
 ## Z Shell
 
