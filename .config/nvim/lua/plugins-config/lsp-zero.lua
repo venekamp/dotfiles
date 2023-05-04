@@ -23,13 +23,15 @@ lsp.nvim_workspace()
 -- Define Language Server that will be installed always
 lsp.ensure_installed({
   'pyright',
-  'sumneko_lua',
-  'bashls'
+  'lua_ls',
+  'bashls',
+  'jsonls',
+  'yamlls'
 })
 
 lsp.set_preferences({
   suggest_lsp_servers = false,
-  set_lsp_keymaps = {omit = {'<F2>'}}  -- We'll define <leader>rn instead
+  set_lsp_keymaps = { omit = { '<F2>' } } -- We'll define <leader>rn instead, see lsp.on_attach() below.
 })
 
 lsp.on_attach(function(client, bufnr)
@@ -38,20 +40,6 @@ lsp.on_attach(function(client, bufnr)
   -- Here we set our LSP rename keymap binding
   vim.keymap.set('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
 end)
-
-lsp.configure("sumneko_lua", {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = {'vim'},  -- Stop nvim from complaining that vim is undefined
-            },
-            runtime = {
-                version = "LuaJIT",
-                path = vim.split(package.path, ";"),
-            },
-        }
-    }
-})
 
 lsp.setup()
 

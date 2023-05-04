@@ -1,3 +1,5 @@
+-- vim.opt.exrc = true
+
 -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 -- delays and poor user experience.
 vim.opt.updatetime = 300
@@ -39,7 +41,10 @@ vim.opt.sidescroll = 1
 -- Autocommand for remembering the last cursor position of the file
 table.unpack = table.unpack or unpack -- Needed for Lua 5.1 compatibility
 
+local remember_cursor = vim.api.nvim_create_augroup('remembering_cursor', {clear = true})
+
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufReadPost' }, {
+  group = remember_cursor,
   callback = function()
     local row, column = table.unpack(vim.api.nvim_buf_get_mark(0, '"'))
     local buf_line_count = vim.api.nvim_buf_line_count(0)
@@ -52,8 +57,11 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufReadPost' }, {
 
 
 -- Autocommand for removing white space at the end of a line when writing the buffer.
-vim.api.nvim_create_autocmd({ 'BufWritePre'}, {
+local remove_trailing_spaces = vim.api.nvim_create_augroup('remove_trailing_spaces', {clear = true})
+
+vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     --  autocmd BufWritePre * %s/\s\+$//e
+    group = remove_trailing_spaces,
     callback = function()
     if not vim.o.binary and vim.o.filetype ~= 'diff' then
         local current_view = vim.fn.winsaveview()
