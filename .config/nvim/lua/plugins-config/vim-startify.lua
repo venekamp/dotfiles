@@ -1,2 +1,0 @@
-require('vim-startify').setup {
-}
