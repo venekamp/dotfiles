@@ -19,7 +19,7 @@ Configure the repository to not track files. If file tracking is allowed you
 will see all untracked files in your root and that's probably a lot.
 
 ```bash
-dotfiles config --local status.showUntrackedFiles no`
+dotfiles config --local status.showUntrackedFiles no
 ```
 
 Checking out the dotfiles is done by:
@@ -30,6 +30,15 @@ dotfiles init
 dotfiles config --global init.defaultBranch main
 dotfiles remote add origin git@github.com:venekamp/dotfiles.git
 dotfiles pull origin main
+```
+
+## Base16 shell colour theme
+
+In order to get a better colour theme for the shell, check out the following repo.
+The zshell configuration is configured to use themes from base16
+
+```
+﻿git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 ```
 
 ## Z Shell
