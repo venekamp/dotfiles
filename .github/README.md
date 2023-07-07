@@ -52,5 +52,12 @@ The zshell configuration is configured to use themes from base16
 - Theming: base 16
 - Setup git for dotfiles: `dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'`
 
+## Install Homebrew for additional packages
+
+### Install npm
+
+Some neovim plugins require npm to be installed:
+
+`brew install npm`
 ## Neovim
 
